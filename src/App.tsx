@@ -1,60 +1,64 @@
-import * as React from 'react'
-import { render } from 'react-dom'
+import React, { FC, ChangeEvent, useState } from "react";
+import "./App.css";
+import TodoTask from "./Components/TodoTask";
+import { ITask } from "./interface";
 
-// Import Components
-import TodoForm from './Components/ToDoForm'
-import ToDoList from './Components/ToDoList'
+const App: FC = () => {
+  const [task, setTask] = useState<string>("");
+  const [deadline, setDealine] = useState<number>(0);
+  const [todoList, setTodoList] = useState<ITask[]>([]);
 
-// Import Interfaces 
-import { TodoInterface } from './interface'
-// import './style.css'
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.name === "task") {
+      setTask(event.target.value);
+    } else {
+      setDealine(Number(event.target.value));
+    }
+  };
 
-const App: React.FC = () => {
-  const [todos, setTodos] = React.useState<TodoInterface[]>([])
-  // creating new todo items
-  function handleTodoCreate(todo: TodoInterface) {
-    const newTodosState: TodoInterface[] = [...todos]
-    newTodosState.push(todo)
-    setTodos(newTodosState)
-  }
-  // Update existing todo item 
-  function handleTodoUpdate(event: React.ChangeEvent<HTMLInputElement>, id: string) {
-    const newTodosState: TodoInterface[] = [...todos]
-    
-    newTodosState.find((todo: TodoInterface) => todo.id === id)!.name = event.target.value
-    
-    setTodos(newTodosState)
-  }
-  
-  // remove existing todo item
-  function handleTodoRemove(id: string) {
-    const newTodosState: TodoInterface[] = todos.filter((todo: TodoInterface) => todo.id !== id)
-    
-    setTodos(newTodosState)
-  }
-  
-  // Check existing todo item as completed 
-  function handleTodoComplete(id: string) {
-    const newTodosState: TodoInterface[] = [...todos]
-    // Find the correct todo item and update its 'isCompleted' key 
-    newTodosState.find((todo: TodoInterface) => todo.id === id)!.isCompleted = !newTodosState.find((todo: TodoInterface) => todo.id === id)!.isCompleted
-    
-    setTodos(newTodosState)
-  }
-  
+  const addTask = (): void => {
+    const newTask = { taskName: task, deadline: deadline };
+    setTodoList([...todoList, newTask]);
+    setTask("");
+    setDealine(0);
+  };
+
+  const completeTask = (taskNameToDelete: string): void => {
+    setTodoList(
+      todoList.filter((task) => {
+        return task.taskName !== taskNameToDelete;
+      })
+    );
+  };
+
   return (
     <div className="App">
-      <React.Fragment>
-        <h2>My ToDo APP</h2>
-        <ToDoList
-          todos={todos}
-          handleTodoUpdate={handleTodoUpdate}
-          handleTodoRemove={handleTodoRemove}
-          handleTodoComplete={handleTodoComplete}
-        />
-      </React.Fragment>
+      <div className="header">
+        <div className="inputContainer">
+          <input
+            type="text"
+            placeholder="Task..."
+            name="task"
+            value={task}
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            placeholder="Deadline (in Days)..."
+            name="deadline"
+            value={deadline}
+            onChange={handleChange}
+          />
+        </div>
+        <button onClick={addTask}>Add Task</button>
+      </div>
+      <div className="todoList">
+        {todoList.map((task: ITask, key: number) => {
+          return <TodoTask key={key} task={task} completeTask={completeTask} />;
+        })}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;
