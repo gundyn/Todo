@@ -4,7 +4,7 @@ import shortid from 'shortid'
 import { TodoInterface, TodoFormInterface } from '../interface'
 
 const ToDoForm = (props: TodoInterface) => {
-  const inputRef = React.useRef<HMTLInputElement>(null)
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const [values, setValues] = React.useState('')
   
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -12,20 +12,20 @@ const ToDoForm = (props: TodoInterface) => {
   }
   
   function handleInputEnter(event: React.KeyboardEvent) {
-    // Check for 'Enter' key
+    // Check for ‘Enter’ key
     if (event.key === 'Enter') {
-    // prepare new todo object
-    const newTodo: TodoInterface = {
-      id: shortid.generate(),
-      name: values,
-      isCompleted: false
-    }
+      // Prepare new todo object
+      const newTodo: TodoInterface = {
+        id: shortid.generate(),
+        name: values,
+        isCompleted: false
+      }
     // Create new todo item
     props.handleTodoCreate(newTodo)
     // Reset the input field
     if (inputRef && inputRef.current) {
       inputRef.current.value = ''
-    }
+    } 
     }
   }
   

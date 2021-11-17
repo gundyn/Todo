@@ -46,7 +46,7 @@ const App: React.FC = () => {
     <div className="App">
       <React.Fragment>
         <h2>My ToDo APP</h2>
-        <TodoForm 
+        <ToDoList
           todos={todos}
           handleTodoUpdate={handleTodoUpdate}
           handleTodoRemove={handleTodoRemove}
