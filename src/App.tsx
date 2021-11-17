@@ -3,6 +3,9 @@ import "./App.css";
 import TodoTask from "./Components/TodoTask";
 import { ITask } from "./interface";
 
+// Material UI
+import Button from '@mui/material/Button';
+
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
   const [deadline, setDealine] = useState<number>(0);
@@ -50,7 +53,7 @@ const App: FC = () => {
             onChange={handleChange}
           />
         </div>
-        <button onClick={addTask}>Add Task</button>
+        <Button variant="contained" onClick={addTask}>Add Task</Button>
       </div>
       <div className="todoList">
         {todoList.map((task: ITask, key: number) => {
