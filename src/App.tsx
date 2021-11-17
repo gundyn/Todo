@@ -4,7 +4,10 @@ import TodoTask from "./Components/TodoTask";
 import { ITask } from "./interface";
 
 // Material UI
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Container from '@mui/material/Container'
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
@@ -35,9 +38,7 @@ const App: FC = () => {
   };
 
   return (
-    <div className="App">
-      <div className="header">
-        <div className="inputContainer">
+        <Container>
           <input
             type="text"
             placeholder="Task..."
@@ -52,15 +53,18 @@ const App: FC = () => {
             value={deadline}
             onChange={handleChange}
           />
-        </div>
         <Button variant="contained" onClick={addTask}>Add Task</Button>
-      </div>
-      <div className="todoList">
-        {todoList.map((task: ITask, key: number) => {
-          return <TodoTask key={key} task={task} completeTask={completeTask} />;
-        })}
-      </div>
-    </div>
+
+        <Grid container>
+          <Grid item xs={12} md={3}> 
+            <Paper><div className="todoList">
+              {todoList.map((task: ITask, key: number) => {
+                return <TodoTask key={key} task={task} completeTask={completeTask} />
+              })}
+            </div></Paper>
+          </Grid>
+        </Grid>
+    </Container>
   );
 };
 
