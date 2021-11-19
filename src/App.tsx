@@ -73,12 +73,16 @@ const App: FC = () => {
 
         <Grid 
           container 
-          spacing={3}
+          spacing={6}
           alignItems="center" 
           justifyContent="center"
           >
           <Grid item xs={12} md={3}> 
-            <Paper className="listDisplay" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}><div className="todoList">
+            <Paper className="listDisplay" sx={{ 
+              display: 'flex', 
+              flexDirection: 'row', 
+              justifyContent: 'center', 
+            }}><div className="todoList">
               {todoList.map((task: ITask, key: number) => {
                 return <TodoTask key={key} task={task} completeTask={completeTask} />
               })}
