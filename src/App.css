@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -35,4 +36,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+body {
+  height: 100vh;
+  background-color: #F8F0E3;
+}
+
+input {
+  background-color: #E3EBF8;
+  border: none;
+  margin: 5px;
+  text-align: center;
+}
+
+.MuiPaper-root {
+  background-color: #E3EBF8 !important;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+  background-color: #E3EBF8 !important;
+  color: #8C8B8A !important;
+}
+
+.MuiButton-root:hover {
+  background-color: #F0E3F8 !important;
+}
+
+.task {
+  margin: 10px;
 }

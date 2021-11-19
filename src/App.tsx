@@ -7,7 +7,9 @@ import { ITask } from "./interface";
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import Container from '@mui/material/Container'
+import Box from '@mui/material/Box';
+import { spacing } from '@mui/system'
+
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
@@ -36,35 +38,54 @@ const App: FC = () => {
       })
     );
   };
+  
 
   return (
-        <Container>
-          <input
-            type="text"
-            placeholder="Task..."
-            name="task"
-            value={task}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            placeholder="Deadline (in Days)..."
-            name="deadline"
-            value={deadline}
-            onChange={handleChange}
-          />
-        <Button variant="contained" onClick={addTask}>Add Task</Button>
+        <Box sx={{
+          paddingTop: 15,
+          paddingLeft: 15,
+          paddingRight: 15,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div>
+            <input
+              type="text"
+              placeholder="Task..."
+              name="task"
+              value={task}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              placeholder="Deadline (in Days)..."
+              name="deadline"
+              value={deadline}
+              onChange={handleChange}
+            />
+          </div>
+          <Box sx={{ pt: 2, pb: 2 }}>
+            <Button variant="contained" onClick={addTask}>Add Task</Button>
+          </Box>
 
-        <Grid container>
+        <Grid 
+          container 
+          spacing={3}
+          alignItems="center" 
+          justifyContent="center"
+          >
           <Grid item xs={12} md={3}> 
-            <Paper><div className="todoList">
+            <Paper className="listDisplay" sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', }}><div className="todoList">
               {todoList.map((task: ITask, key: number) => {
                 return <TodoTask key={key} task={task} completeTask={completeTask} />
               })}
             </div></Paper>
           </Grid>
         </Grid>
-    </Container>
+    </Box>
   );
 };
 
